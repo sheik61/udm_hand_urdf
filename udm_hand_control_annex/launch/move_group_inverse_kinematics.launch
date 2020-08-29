@@ -1,0 +1,18 @@
+<launch>
+
+  <node name="move_group_python_index_inverse_kinematics" pkg="udm_hand_control_annex" type="move_index_inverse_kinematics.py" respawn="false" output="screen">
+  </node>
+
+  <node name="move_group_python_middle_inverse_kinematics" pkg="udm_hand_control_annex" type="move_middle_inverse_kinematics.py" respawn="false" output="screen">
+  </node>
+
+  <node name="move_group_python_ring_inverse_kinematics" pkg="udm_hand_control_annex" type="move_ring_inverse_kinematics.py" respawn="false" output="screen">
+  </node>
+
+   <node name="move_group_python_pinky_inverse_kinematics" pkg="udm_hand_control_annex" type="move_pinky_inverse_kinematics.py" respawn="false" output="screen">
+  </node>
+
+   <node name="move_group_python_thumb_inverse_kinematics" pkg="udm_hand_control_annex" type="move_thumb_inverse_kinematics.py" respawn="false" output="screen">
+  </node>
+
+</launch>

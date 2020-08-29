@@ -1,0 +1,185 @@
+<?xml version="1.0" ?>
+<!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
+<robot name="hand">
+    <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
+    <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
+    <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
+    <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
+    <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
+    <group name="Index">
+        <joint name="hand" />
+        <joint name="hand_to_index_proximal" />
+        <joint name="index_proximal_to_index_intermediate" />
+        <joint name="index_intermediate_to_index_distal" />
+    </group>
+    <group name="Middle">
+        <joint name="hand_to_middle_proximal" />
+        <joint name="middle_proximal_to_middle_intermediate" />
+        <joint name="middle_intermediate_to_middle_distal" />
+        <joint name="hand" />
+    </group>
+    <group name="RIng">
+        <joint name="hand" />
+        <joint name="hand_to_ring_proximal" />
+        <joint name="ring_proximal_to_ring_intermediate" />
+        <joint name="ring_intermediate_to_ring_distal" />
+    </group>
+    <group name="Pinky">
+        <joint name="hand" />
+        <joint name="hand_to_pinky_proximal" />
+        <joint name="pinky_proximal_to_pinky_intermediate" />
+        <joint name="pinky_intermediate_to_pinky_distal" />
+    </group>
+    <group name="Thumb">
+        <joint name="hand" />
+        <joint name="hand_to_thumb_proximal" />
+        <joint name="thumb_proximal_to_thumb_distal" />
+    </group>
+    <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
+    <group_state name="Index_pose" group="Index">
+        <joint name="hand" value="0" />
+        <joint name="hand_to_index_proximal" value="1" />
+        <joint name="index_intermediate_to_index_distal" value="1" />
+        <joint name="index_proximal_to_index_intermediate" value="1" />
+    </group_state>
+    <group_state name="Middle_pose" group="Middle">
+        <joint name="hand" value="0" />
+        <joint name="hand_to_middle_proximal" value="1" />
+        <joint name="middle_intermediate_to_middle_distal" value="1" />
+        <joint name="middle_proximal_to_middle_intermediate" value="1" />
+    </group_state>
+    <group_state name="Ring" group="RIng">
+        <joint name="hand" value="0" />
+        <joint name="hand_to_ring_proximal" value="1" />
+        <joint name="ring_intermediate_to_ring_distal" value="1" />
+        <joint name="ring_proximal_to_ring_intermediate" value="1" />
+    </group_state>
+    <group_state name="Pinky" group="Pinky">
+        <joint name="hand" value="0" />
+        <joint name="hand_to_pinky_proximal" value="1" />
+        <joint name="pinky_intermediate_to_pinky_distal" value="1" />
+        <joint name="pinky_proximal_to_pinky_intermediate" value="1" />
+    </group_state>
+    <group_state name="Thumb" group="Thumb">
+        <joint name="hand" value="0" />
+        <joint name="hand_to_thumb_proximal" value="1" />
+        <joint name="thumb_proximal_to_thumb_distal" value="1" />
+    </group_state>
+    <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
+    <end_effector name="Index_end_effector" parent_link="base_link" group="Index" />
+    <end_effector name="Middle_end_effector" parent_link="base_link" group="Middle" />
+    <end_effector name="RIng_end_effector" parent_link="base_link" group="RIng" />
+    <end_effector name="Pinky" parent_link="base_link" group="Pinky" />
+    <end_effector name="Thumb" parent_link="base_link" group="Thumb" />
+    <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
+    <virtual_joint name="virtual_joint" type="fixed" parent_frame="world" child_link="base_link" />
+    <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
+    <disable_collisions link1="base_link" link2="index_distal_phalange" reason="Never" />
+    <disable_collisions link1="base_link" link2="index_intermediate_phalange" reason="Never" />
+    <disable_collisions link1="base_link" link2="index_proximal_phalange" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="middle_distal_phalange" reason="Never" />
+    <disable_collisions link1="base_link" link2="middle_intermediate_phalange" reason="Never" />
+    <disable_collisions link1="base_link" link2="middle_proximal_phalange" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="pinky_distal_phalange" reason="Never" />
+    <disable_collisions link1="base_link" link2="pinky_intermediate_phalange" reason="Never" />
+    <disable_collisions link1="base_link" link2="pinky_proximal_phalange" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="ring_distal_phalange" reason="Never" />
+    <disable_collisions link1="base_link" link2="ring_intermediate_phalange" reason="Never" />
+    <disable_collisions link1="base_link" link2="ring_proximal_phalange" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="thumb_distal_phalange" reason="Never" />
+    <disable_collisions link1="base_link" link2="thumb_proximal_phalange" reason="Adjacent" />
+    <disable_collisions link1="index_distal_phalange" link2="index_intermediate_phalange" reason="Adjacent" />
+    <disable_collisions link1="index_distal_phalange" link2="index_proximal_phalange" reason="Never" />
+    <disable_collisions link1="index_distal_phalange" link2="middle_distal_phalange" reason="Never" />
+    <disable_collisions link1="index_distal_phalange" link2="middle_intermediate_phalange" reason="Never" />
+    <disable_collisions link1="index_distal_phalange" link2="middle_proximal_phalange" reason="Never" />
+    <disable_collisions link1="index_distal_phalange" link2="pinky_distal_phalange" reason="Never" />
+    <disable_collisions link1="index_distal_phalange" link2="pinky_intermediate_phalange" reason="Never" />
+    <disable_collisions link1="index_distal_phalange" link2="pinky_proximal_phalange" reason="Never" />
+    <disable_collisions link1="index_distal_phalange" link2="ring_distal_phalange" reason="Never" />
+    <disable_collisions link1="index_distal_phalange" link2="ring_intermediate_phalange" reason="Never" />
+    <disable_collisions link1="index_distal_phalange" link2="ring_proximal_phalange" reason="Never" />
+    <disable_collisions link1="index_distal_phalange" link2="thumb_distal_phalange" reason="Never" />
+    <disable_collisions link1="index_distal_phalange" link2="thumb_proximal_phalange" reason="Never" />
+    <disable_collisions link1="index_intermediate_phalange" link2="index_proximal_phalange" reason="Adjacent" />
+    <disable_collisions link1="index_intermediate_phalange" link2="middle_distal_phalange" reason="Never" />
+    <disable_collisions link1="index_intermediate_phalange" link2="middle_intermediate_phalange" reason="Never" />
+    <disable_collisions link1="index_intermediate_phalange" link2="middle_proximal_phalange" reason="Never" />
+    <disable_collisions link1="index_intermediate_phalange" link2="pinky_distal_phalange" reason="Never" />
+    <disable_collisions link1="index_intermediate_phalange" link2="pinky_intermediate_phalange" reason="Never" />
+    <disable_collisions link1="index_intermediate_phalange" link2="pinky_proximal_phalange" reason="Never" />
+    <disable_collisions link1="index_intermediate_phalange" link2="ring_distal_phalange" reason="Never" />
+    <disable_collisions link1="index_intermediate_phalange" link2="ring_intermediate_phalange" reason="Never" />
+    <disable_collisions link1="index_intermediate_phalange" link2="ring_proximal_phalange" reason="Never" />
+    <disable_collisions link1="index_intermediate_phalange" link2="thumb_distal_phalange" reason="Never" />
+    <disable_collisions link1="index_intermediate_phalange" link2="thumb_proximal_phalange" reason="Never" />
+    <disable_collisions link1="index_proximal_phalange" link2="middle_distal_phalange" reason="Never" />
+    <disable_collisions link1="index_proximal_phalange" link2="middle_intermediate_phalange" reason="Never" />
+    <disable_collisions link1="index_proximal_phalange" link2="middle_proximal_phalange" reason="Never" />
+    <disable_collisions link1="index_proximal_phalange" link2="pinky_distal_phalange" reason="Never" />
+    <disable_collisions link1="index_proximal_phalange" link2="pinky_intermediate_phalange" reason="Never" />
+    <disable_collisions link1="index_proximal_phalange" link2="pinky_proximal_phalange" reason="Never" />
+    <disable_collisions link1="index_proximal_phalange" link2="ring_distal_phalange" reason="Never" />
+    <disable_collisions link1="index_proximal_phalange" link2="ring_intermediate_phalange" reason="Never" />
+    <disable_collisions link1="index_proximal_phalange" link2="ring_proximal_phalange" reason="Never" />
+    <disable_collisions link1="index_proximal_phalange" link2="thumb_distal_phalange" reason="Never" />
+    <disable_collisions link1="index_proximal_phalange" link2="thumb_proximal_phalange" reason="Never" />
+    <disable_collisions link1="middle_distal_phalange" link2="middle_intermediate_phalange" reason="Adjacent" />
+    <disable_collisions link1="middle_distal_phalange" link2="middle_proximal_phalange" reason="Never" />
+    <disable_collisions link1="middle_distal_phalange" link2="pinky_distal_phalange" reason="Never" />
+    <disable_collisions link1="middle_distal_phalange" link2="pinky_intermediate_phalange" reason="Never" />
+    <disable_collisions link1="middle_distal_phalange" link2="pinky_proximal_phalange" reason="Never" />
+    <disable_collisions link1="middle_distal_phalange" link2="ring_distal_phalange" reason="Never" />
+    <disable_collisions link1="middle_distal_phalange" link2="ring_intermediate_phalange" reason="Never" />
+    <disable_collisions link1="middle_distal_phalange" link2="ring_proximal_phalange" reason="Never" />
+    <disable_collisions link1="middle_distal_phalange" link2="thumb_distal_phalange" reason="Never" />
+    <disable_collisions link1="middle_distal_phalange" link2="thumb_proximal_phalange" reason="Never" />
+    <disable_collisions link1="middle_intermediate_phalange" link2="middle_proximal_phalange" reason="Adjacent" />
+    <disable_collisions link1="middle_intermediate_phalange" link2="pinky_distal_phalange" reason="Never" />
+    <disable_collisions link1="middle_intermediate_phalange" link2="pinky_intermediate_phalange" reason="Never" />
+    <disable_collisions link1="middle_intermediate_phalange" link2="pinky_proximal_phalange" reason="Never" />
+    <disable_collisions link1="middle_intermediate_phalange" link2="ring_distal_phalange" reason="Never" />
+    <disable_collisions link1="middle_intermediate_phalange" link2="ring_intermediate_phalange" reason="Never" />
+    <disable_collisions link1="middle_intermediate_phalange" link2="ring_proximal_phalange" reason="Never" />
+    <disable_collisions link1="middle_intermediate_phalange" link2="thumb_distal_phalange" reason="Never" />
+    <disable_collisions link1="middle_intermediate_phalange" link2="thumb_proximal_phalange" reason="Never" />
+    <disable_collisions link1="middle_proximal_phalange" link2="pinky_distal_phalange" reason="Never" />
+    <disable_collisions link1="middle_proximal_phalange" link2="pinky_intermediate_phalange" reason="Never" />
+    <disable_collisions link1="middle_proximal_phalange" link2="pinky_proximal_phalange" reason="Never" />
+    <disable_collisions link1="middle_proximal_phalange" link2="ring_distal_phalange" reason="Never" />
+    <disable_collisions link1="middle_proximal_phalange" link2="ring_intermediate_phalange" reason="Never" />
+    <disable_collisions link1="middle_proximal_phalange" link2="ring_proximal_phalange" reason="Never" />
+    <disable_collisions link1="middle_proximal_phalange" link2="thumb_distal_phalange" reason="Never" />
+    <disable_collisions link1="middle_proximal_phalange" link2="thumb_proximal_phalange" reason="Never" />
+    <disable_collisions link1="pinky_distal_phalange" link2="pinky_intermediate_phalange" reason="Adjacent" />
+    <disable_collisions link1="pinky_distal_phalange" link2="pinky_proximal_phalange" reason="Never" />
+    <disable_collisions link1="pinky_distal_phalange" link2="ring_distal_phalange" reason="Never" />
+    <disable_collisions link1="pinky_distal_phalange" link2="ring_intermediate_phalange" reason="Never" />
+    <disable_collisions link1="pinky_distal_phalange" link2="ring_proximal_phalange" reason="Never" />
+    <disable_collisions link1="pinky_distal_phalange" link2="thumb_distal_phalange" reason="Never" />
+    <disable_collisions link1="pinky_distal_phalange" link2="thumb_proximal_phalange" reason="Never" />
+    <disable_collisions link1="pinky_intermediate_phalange" link2="pinky_proximal_phalange" reason="Adjacent" />
+    <disable_collisions link1="pinky_intermediate_phalange" link2="ring_distal_phalange" reason="Never" />
+    <disable_collisions link1="pinky_intermediate_phalange" link2="ring_intermediate_phalange" reason="Never" />
+    <disable_collisions link1="pinky_intermediate_phalange" link2="ring_proximal_phalange" reason="Never" />
+    <disable_collisions link1="pinky_intermediate_phalange" link2="thumb_distal_phalange" reason="Never" />
+    <disable_collisions link1="pinky_intermediate_phalange" link2="thumb_proximal_phalange" reason="Never" />
+    <disable_collisions link1="pinky_proximal_phalange" link2="ring_distal_phalange" reason="Never" />
+    <disable_collisions link1="pinky_proximal_phalange" link2="ring_intermediate_phalange" reason="Never" />
+    <disable_collisions link1="pinky_proximal_phalange" link2="ring_proximal_phalange" reason="Never" />
+    <disable_collisions link1="pinky_proximal_phalange" link2="thumb_distal_phalange" reason="Never" />
+    <disable_collisions link1="pinky_proximal_phalange" link2="thumb_proximal_phalange" reason="Never" />
+    <disable_collisions link1="ring_distal_phalange" link2="ring_intermediate_phalange" reason="Adjacent" />
+    <disable_collisions link1="ring_distal_phalange" link2="ring_proximal_phalange" reason="Never" />
+    <disable_collisions link1="ring_distal_phalange" link2="thumb_distal_phalange" reason="Never" />
+    <disable_collisions link1="ring_distal_phalange" link2="thumb_proximal_phalange" reason="Never" />
+    <disable_collisions link1="ring_intermediate_phalange" link2="ring_proximal_phalange" reason="Adjacent" />
+    <disable_collisions link1="ring_intermediate_phalange" link2="thumb_distal_phalange" reason="Never" />
+    <disable_collisions link1="ring_intermediate_phalange" link2="thumb_proximal_phalange" reason="Never" />
+    <disable_collisions link1="ring_proximal_phalange" link2="thumb_distal_phalange" reason="Never" />
+    <disable_collisions link1="ring_proximal_phalange" link2="thumb_proximal_phalange" reason="Never" />
+    <disable_collisions link1="thumb_distal_phalange" link2="thumb_proximal_phalange" reason="Adjacent" />
+</robot>

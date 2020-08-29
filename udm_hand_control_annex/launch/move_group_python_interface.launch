@@ -1,0 +1,18 @@
+<launch>
+
+  <node name="move_group_python_interface_index" pkg="udm_hand_control_annex" type="move_group_index_interface.py" respawn="false" output="screen">
+  </node>
+
+  <node name="move_group_python_interface_middle" pkg="udm_hand_control_annex" type="move_group_middle_interface.py" respawn="false" output="screen">
+  </node>
+
+  <node name="move_group_python_interface_ring" pkg="udm_hand_control_annex" type="move_group_ring_interface.py" respawn="false" output="screen">
+  </node>
+
+  <node name="move_group_python_interface_pinky" pkg="udm_hand_control_annex" type="move_group_pinky_interface.py" respawn="false" output="screen">
+  </node>
+
+  <node name="move_group_python_interface_thumb" pkg="udm_hand_control_annex" type="move_group_thumb_interface.py" respawn="false" output="screen">
+  </node>
+
+</launch>

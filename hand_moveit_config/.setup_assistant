@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: udm_urdf
+    relative_path: urdf/main.urdf
+    xacro_args: ""
+  SRDF:
+    relative_path: config/hand.srdf
+  CONFIG:
+    author_name: Ubayde Roham
+    author_email: smroham@student.udm.ac.mu
+    generated_timestamp: 1588785947

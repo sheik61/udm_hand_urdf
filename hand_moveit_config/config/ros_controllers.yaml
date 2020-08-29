@@ -1,0 +1,77 @@
+# Simulation settings for using moveit_sim_controllers
+moveit_sim_hw_interface:
+  joint_model_group: Index
+  joint_model_group_pose: Index_pose
+# Settings for ros_control_boilerplate control loop
+generic_hw_control_loop:
+  loop_hz: 300
+  cycle_time_error_threshold: 0.01
+# Settings for ros_control hardware interface
+hardware_interface:
+  joints:
+    - hand
+    - hand_to_index_proximal
+    - index_proximal_to_index_intermediate
+    - index_intermediate_to_index_distal
+    - hand_to_middle_proximal
+    - middle_proximal_to_middle_intermediate
+    - middle_intermediate_to_middle_distal
+    - hand_to_pinky_proximal
+    - pinky_proximal_to_pinky_intermediate
+    - pinky_intermediate_to_pinky_distal
+    - hand_to_ring_proximal
+    - ring_proximal_to_ring_intermediate
+    - ring_intermediate_to_ring_distal
+    - hand_to_thumb_proximal
+    - thumb_proximal_to_thumb_distal
+  sim_control_mode: 1  # 0: position, 1: velocity
+# Publish all joint states
+# Creates the /joint_states topic necessary in ROS
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
+controller_list:
+  - name: Index_controller
+    action_ns: follow_joint_trajectory
+    default: True
+    type: FollowJointTrajectory
+    joints:
+      - hand
+      - hand_to_index_proximal
+      - index_proximal_to_index_intermediate
+      - index_intermediate_to_index_distal
+  - name: Middle_controller
+    action_ns: follow_joint_trajectory
+    default: True
+    type: FollowJointTrajectory
+    joints:
+      - hand
+      - hand_to_middle_proximal
+      - middle_proximal_to_middle_intermediate
+      - middle_intermediate_to_middle_distal
+  - name: RIng_controller
+    action_ns: follow_joint_trajectory
+    default: True
+    type: FollowJointTrajectory
+    joints:
+      - hand
+      - hand_to_ring_proximal
+      - ring_proximal_to_ring_intermediate
+      - ring_intermediate_to_ring_distal
+  - name: Pinky_controller
+    action_ns: follow_joint_trajectory
+    default: True
+    type: FollowJointTrajectory
+    joints:
+      - hand
+      - hand_to_pinky_proximal
+      - pinky_proximal_to_pinky_intermediate
+      - pinky_intermediate_to_pinky_distal
+  - name: Thumb_controller
+    action_ns: follow_joint_trajectory
+    default: True
+    type: FollowJointTrajectory
+    joints:
+      - hand
+      - hand_to_thumb_proximal
+      - thumb_proximal_to_thumb_distal
